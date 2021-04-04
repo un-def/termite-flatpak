@@ -1,0 +1,28 @@
+app-id: dev.micay.daniel.Termite
+runtime: org.gnome.Platform
+runtime-version: '3.38'
+sdk: org.gnome.Sdk
+command: termite
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --share=network
+modules:
+  - name: vte-ng
+    buildsystem: meson
+    sources:
+      - type: git
+        url: https://github.com/sd-hd/vte-ng.git
+        branch: 0.58.2-ng
+        commit: 45bba03f248c128b4837a33def295ad5bb474204
+  - name: termite
+    buildsystem: simple
+    build-commands:
+      - make
+      - make install PREFIX= DESTDIR=/app
+    sources:
+      - type: git
+        url: https://github.com/thestinger/termite.git
+        tag: v15
+        commit: 4aa842245f7abb9328bf37d48f814c7b749e8516
